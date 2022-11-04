@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="menu/base.css">
+  <link rel="stylesheet" href="menu/style.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="menu/temp.css">
+
+  <!-- <script src="script.js" defer></script> -->
+  <script src="app.js" type="module"></script>
+
+  <title>Submenu</title>
+</head>
+
+<body id="body">
+  <button hidden>
+    <label>
+      menu<input type="checkbox" hidden id="menu-toggle">
+    </label>
+
+    <ul>
+      <li>item 1</li>
+      <li>item 2</li>
+
+      <li>
+        <span>long item 3</span>
+
+        <ul>
+          <label for="menu-toggle"></label>
+          <li>item 31</li>
+          <li>item 32</li>
+          <li>item 33</li>
+          <li>item 34</li>
+        </ul>
+      </li>
+
+      <li>
+        <span>long item 4</span>
+
+        <ul>
+          <label for="menu-toggle"></label>
+          <li>item 41</li>
+          <li>item 42</li>
+          <li>item 43</li>
+          <li>item 44</li>
+        </ul>
+      </li>
+    </ul>
+  </button>
+</body>
+
+</html>

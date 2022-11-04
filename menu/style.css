@@ -1,0 +1,32 @@
+.menu-btn {
+  --vertical-pad: 5px;
+}
+
+.menu-btn>label {
+  background-color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.menu-btn>label::before {
+  background-color: #0003;
+}
+
+.menu-btn ul {
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 3px;
+  --menu-gap: 3px;
+}
+
+.menu-btn li {
+  padding: var(--vertical-pad) 10px;
+  color: #000;
+}
+
+.menu-btn li:hover {
+  background-color: #000;
+  color: #fff;
+}

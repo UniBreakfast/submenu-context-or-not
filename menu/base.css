@@ -1,0 +1,159 @@
+.menu-btn {
+  position: absolute;
+  transform: translateX(0);
+  white-space: nowrap;
+}
+
+.menu-btn>label {
+  display: block;
+  height: 100%;
+}
+
+.menu-btn>label::before {
+  content: "";
+  position: absolute;
+  inset: -100vh -100vw;
+  width: 200vw;
+  height: 200vh;
+  z-index: -1;
+  transition: opacity 300ms;
+}
+
+.menu-btn>label:not(:has(:checked))+ul,
+.menu-btn>label:not(:has(:checked))::before,
+.menu-btn li:not(:hover) ul {
+  /* display: none; */
+  transition: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-btn ul {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  transition: opacity 300ms;
+}
+
+.menu-btn:is([data-direction=up], [data-direction=down], [data-direction=center])>ul,
+.menu-btn :is([data-direction=up], [data-direction=down], [data-direction=center])>ul {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.menu-btn[data-direction=up]>ul,
+.menu-btn [data-direction=up]>ul {
+  bottom: calc(100% + var(--menu-gap));
+}
+
+.menu-btn[data-direction=down]>ul,
+.menu-btn [data-direction=down]>ul {
+  top: calc(100% + var(--menu-gap));
+}
+
+.menu-btn:is([data-direction=left], [data-direction=right], [data-direction=center])>ul,
+.menu-btn :is([data-direction=left], [data-direction=right], [data-direction=center])>ul {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-btn[data-direction=left]>ul,
+.menu-btn [data-direction=left]>ul {
+  right: calc(100% + var(--menu-gap));
+}
+
+.menu-btn[data-direction=right]>ul,
+.menu-btn [data-direction=right]>ul {
+  left: calc(100% + var(--menu-gap));
+}
+
+.menu-btn[data-direction=center]>ul,
+.menu-btn [data-direction=center]>ul {
+  transform: translate(-50%, -50%);
+}
+
+.menu-btn li {
+  position: relative;
+}
+
+.menu-btn :not([data-direction=center])>ul>label[for] {
+  position: absolute;
+  inset: -100vh -100vw;
+  z-index: -1;
+}
+
+.menu-btn [data-direction=up]>ul>label[for] {
+  bottom: -1px;
+}
+
+.menu-btn [data-direction=right]>ul>label[for] {
+  left: -1px;
+}
+
+.menu-btn [data-direction=down]>ul>label[for] {
+  top: -1px;
+}
+
+.menu-btn [data-direction=left]>ul>label[for] {
+  right: -1px;
+}
+
+.menu-btn>label,
+.menu-btn li:has(ul) {
+  padding-right: 30px;
+}
+
+.menu-btn>label::after,
+.menu-btn li:has(ul)::after {
+  position: absolute;
+  left: calc(100% - 22px);
+  display: inline-block;
+}
+
+.menu-btn[data-direction=center]>label::after,
+.menu-btn li[data-direction=center]::after {
+  content: "◆";
+}
+
+.menu-btn[data-direction=up]>label::after,
+.menu-btn li[data-direction=up]::after {
+  content: "▲";
+}
+
+.menu-btn li[data-direction=up]::after {
+  top: calc(0px - var(--menu-gap));
+  left: 0;
+  padding-left: calc(100% - 22px);
+  padding-top: calc(var(--vertical-pad) + var(--menu-gap));
+}
+
+.menu-btn[data-direction=right]>label::after,
+.menu-btn li[data-direction=right]::after {
+  content: "▶";
+}
+
+.menu-btn li[data-direction=right]::after {
+  padding-right: calc(7px + var(--menu-gap));
+}
+
+.menu-btn[data-direction=down]>label::after,
+.menu-btn li[data-direction=down]::after {
+  content: "▼";
+}
+
+.menu-btn li[data-direction=down]::after {
+  left: 0;
+  padding-left: calc(100% - 22px);
+  padding-bottom: calc(5px + var(--menu-gap));
+}
+
+.menu-btn[data-direction=left]>label::after,
+.menu-btn li[data-direction=left]::after {
+  content: "◀";
+}
+
+.menu-btn li[data-direction=left]::after {
+  left: calc(0px - var(--menu-gap));
+  padding-left: calc(100% - 22px + var(--menu-gap));
+}

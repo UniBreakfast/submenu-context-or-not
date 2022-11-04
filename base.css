@@ -1,0 +1,13 @@
+body, button {
+  font: bold 18px Trebuchet MS, Helvetica, sans-serif;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+
+button {
+  border: 1px solid gray;
+  border-radius: 6px;
+}
