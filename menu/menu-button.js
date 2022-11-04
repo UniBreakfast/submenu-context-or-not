@@ -85,7 +85,8 @@ function makeMenuButton(config) {
   btn.append(label, ul)
   label.append(config.label, input)
   btn.classList.add('menu-btn')
-  btn.dataset.direction = config.direction ?? 'center'
+  btn.dataset.direction = btn.dataset.prefDir = 
+    config.direction ?? 'right'
   Object.assign(input, { type: 'checkbox', hidden: true, id: 'menu-toggler' })
 
   ul.append(...config.items.map(buildMenuItem))
@@ -105,7 +106,8 @@ function buildMenuItem(item) {
     li.append(span, ul)
     span.append(item.label)
     ul.append(label, ...item.items.map(buildMenuItem))
-    li.dataset.direction = item.direction ?? 'center'
+    li.dataset.direction = li.dataset.prefDir = 
+      item.direction ?? 'center'
     label.setAttribute('for', 'menu-toggler')
   } else {
     li.append(item.label)
@@ -127,17 +129,14 @@ function optimizeDirections() {
 }
 
 function chooseDirection(ul, {width, height}) {
-  const ulRect = ul.getBoundingClientRect()
-
-  if (isInViewport(ulRect, {width, height})) return
-
   const parent = ul.parentElement
-  const grandparent = parent.parentElement
+  
+  parent.dataset.direction = parent.dataset.prefDir
+
+  if (isInViewport(ul, {width, height})) return
+
   const firstLevel = parent.classList.contains('menu-btn')
   const badDirections = [parent.dataset.direction]
-  const pRect = firstLevel 
-    ? parent.getBoundingClientRect()
-    : grandparent.getBoundingClientRect()
 
   if (!firstLevel && parent.previousElementSibling) {
     badDirections.push('up')
@@ -147,10 +146,23 @@ function chooseDirection(ul, {width, height}) {
     badDirections.push('down')
   }
 
-  parent.dataset.direction = getBestDirection(
-    pRect, ulRect, {width, height}, badDirections, 
-  )
+  rotateTillFit(ul, badDirections, {width, height})
 }
+
+function rotateTillFit(ul, badDirections, viewport) {
+  const parent = ul.parentElement
+  const directions = ['right', 'down', 'left', 'up', 'center']
+    .filter(dir => !badDirections.includes(dir))
+
+  for (const direction of directions) {
+    parent.dataset.direction = direction
+
+    if (isInViewport(ul, viewport)) return
+  }
+
+  parent.dataset.direction = parent.dataset.prefDir
+}
+
 
 function getBestDirection(pRect, ulRect, {width, height}, badDirections) {
   let bestDirection = null
@@ -196,7 +208,9 @@ function getBestDirection(pRect, ulRect, {width, height}, badDirections) {
   return bestDirection ?? 'center'
 }
 
-function isInViewport(rect, {width, height}) {
+function isInViewport(el, {width, height}) {
+  const rect = el.getBoundingClientRect()
+
   return rect.top >= 0 && rect.left >= 0 &&
     rect.bottom <= height && rect.right <= width
 }
